@@ -1,1 +1,15 @@
 Boveda/
+
+# Executables
+*.exe
+*.out
+
+# Object files
+*.o
+*.obj
+
+# Libraries
+*.lib
+*.a
+*.so
+*.dylib
