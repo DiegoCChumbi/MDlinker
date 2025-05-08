@@ -1,4 +1,4 @@
-#include "MDLlib.h"
+#include "MDlib.h"
 
 void creaLinker(std::string sruta){
 
@@ -13,13 +13,16 @@ void creaLinker(std::string sruta){
 		return;
 	}
 
-	//imprimirLista(nombres);
+	imprimirLista(nombres);
 	creaIndex(ruta,nombres);
 }
 
 fs::path defineRuta(std::string ruta){
 	if(ruta == ".") return fs::current_path();
-	else return ruta;
+	else{
+		ruta.erase(ruta.length()-1);
+		return ruta;
+	}
 }
 
 void creaIndex(fs::path ruta,std::vector<std::string> nombres){
@@ -27,9 +30,15 @@ void creaIndex(fs::path ruta,std::vector<std::string> nombres){
 	std::string indexArch = (std::string)ruta + "/" + nombreIndex + ".md";
 	std::cout << "Ruta: " << ruta << std::endl;
 	std::cout << "Nombre carpeta: " << nombreIndex << std::endl;
-	std::cout << "Path index" << indexArch << std::endl;
+	std::cout << "Path index: " << indexArch << std::endl;
+	
 	std::ofstream index;
 	index.open(indexArch);
+
+	if (!index.is_open()){
+		std::cout << "Error en la apertura/creacion del archivo" << std::endl;
+		return;
+	}
 
 	index << "# Bienvenido al Hub de " << nombreIndex << std::endl;
 	index << "#Hub" << std::endl;
@@ -38,6 +47,7 @@ void creaIndex(fs::path ruta,std::vector<std::string> nombres){
 	}
 	std::cout << "Index creado" << std::endl;
 	index.close();
+	
 }
 
 void imprimirLista(std::vector<std::string> nombres){
@@ -57,8 +67,10 @@ std::vector<std::string> capturaNombres(fs::path ruta){
 
 	for(const auto & arch : fs::directory_iterator(ruta)){
 		if( arch.path().extension() == ".md" )
-			nombres.push_back(arch.path().filename());
+			nombres.push_back(arch.path().stem());
 	}
+
+	std::sort(nombres.begin(),nombres.end());
 
 	return nombres;
 }
