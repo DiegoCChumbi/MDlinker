@@ -3,10 +3,10 @@ all: MDlinker
 MDlinker: main.o MDlib.o
 	g++ main.o MDlib.o -o MDlinker
 
-main.o: main.cpp MDlib.h
+main.o: main.cpp MDlib.h StrIndex.h
 	g++ -std=c++17 -c main.cpp
 
-MDLlib.o: MDlib.cpp MDlib.h
+MDLlib.o: MDlib.cpp MDlib.h StrIndex.h
 	g++ -std=c++17 -c MDLlib.cpp
 
 clean:

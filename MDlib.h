@@ -1,15 +1,14 @@
-#include <filesystem>
 #include <iostream>
 #include <cstring>
 #include <vector>
-#include <fstream>
 #include <algorithm>
+#include "StrIndex.h"
 
 namespace fs = std::filesystem;
 
-void creaLinker(std::string);
+void MDlinker(std::string sruta);
 void imprimirLista(std::vector<std::string>);
 std::vector<std::string> capturaNombres(fs::path);
-bool validaRuta(fs::path);
-void creaIndex(fs::path,std::vector<std::string>);
+void creaIndex(StrIndex data);
 fs::path defineRuta(std::string);
+void inicializar(StrIndex& data, std::string sruta);
